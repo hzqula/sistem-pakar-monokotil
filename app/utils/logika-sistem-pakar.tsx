@@ -12,6 +12,7 @@ export const useExpertSystem = () => {
   const [result, setResult] = useState<Monokotil | null>(null);
   const [isFirstQuestion, setIsFirstQuestion] = useState(true);
 
+
   const getValidQuestions = (): string[] => {
     if (possiblePlants.length === 0) return [];
 
