@@ -1,26 +1,32 @@
 import { Pertanyaan } from "../types/monokotil";
 import { TanamanMonokotil } from "../data/monokotil-data";
 
-// Konversi nodes
-const nodes = [
+type Node = {
+  id: string;
+  teks?: string;
+  group: number;
+};
+
+// Convert nodes
+const nodes: Node[] = [
   ...Pertanyaan.map((question) => ({
     id: question.id,
     teks: question.teks,
-    group: 1, // Group untuk pertanyaan
+    group: 1,
   })),
   ...TanamanMonokotil.map((plant) => ({
     id: plant.nama,
-    group: 2, // Group untuk tanaman
+    group: 2,
   })),
 ];
 
-// Konversi links
+// Convert links
 const links = TanamanMonokotil.flatMap((plant) =>
   Object.entries(plant.ciri)
     .filter(([_, value]) => value === 1)
     .map(([questionId]) => ({
-      source: questionId, // Hubungkan dari pertanyaan
-      target: plant.nama, // Ke tanaman
+      source: questionId, // koneksi ke pertanyaan
+      target: plant.nama, // koneksi ke tanaman monokotil
     }))
 );
 

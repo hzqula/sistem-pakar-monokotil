@@ -4,6 +4,7 @@ export interface Monokotil {
   nama: string;
   gambar: string;
   deskripsi: string;
+  karakteristik?: string[];
   ciri: {
     [key: string]: number;
   };
