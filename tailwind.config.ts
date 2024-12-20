@@ -21,6 +21,10 @@ export default {
         "pastel-yellow": "#ffee93",
         "pastel-purple": "#a594f9",
       },
+      fontFamily: {
+        display: ["Dela Gothic One", "sans-serif"],
+        body: ["Schibsted Grotesk", "sans-serif"],
+      },
     },
   },
   plugins: [],
