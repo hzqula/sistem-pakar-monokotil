@@ -51,7 +51,6 @@ export const useExpertSystem = () => {
     if (isFirstQuestion) {
       setIsFirstQuestion(false);
       const initialQuestion = getInitialQuestion();
-      if (initialQuestion) setQuestionHistory([initialQuestion]);
       return initialQuestion;
     }
 
@@ -80,7 +79,7 @@ export const useExpertSystem = () => {
     };
 
     // Update question history with the answered question
-    setQuestionHistory([...questionHistory, questionWithAnswer]);
+    setQuestionHistory((prevHistory) => [...prevHistory, questionWithAnswer]);
 
     // Update answers state
     const newAnswers = { ...answers, [currentQuestion.id]: answer };

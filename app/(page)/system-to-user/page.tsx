@@ -200,43 +200,57 @@ const ExpertSystemWithGraph = () => {
         return d.id === result?.nama ? 18 : 12;
       })
       .attr("fill", (d: any) => {
-        // Cek apakah ini node tanaman dengan melihat apakah id-nya ada di daftar nama tanaman
+        // Check if it's a plant node
         const isPlant = !d.id.startsWith("q");
         if (isPlant) {
-          return "#055A39"; // Warna untuk tanaman
+          return "#055A39"; // Color for plants
         }
 
-        // Logika untuk node pertanyaan
+        // Logic for answered questions
+        const questionInHistory = questionHistory?.find((q) => q.id === d.id);
+        if (questionInHistory) {
+          // Use the stored answer to determine color
+          // Note: Changed the condition to explicitly check for answer values
+          if (questionInHistory.answer === 0) {
+            return "#C50043"; // Red for "No" answers
+          } else if (questionInHistory.answer === 1) {
+            return "#064359"; // Blue for "Yes" answers
+          }
+        }
+
+        // Current question color
         if (d.id === currentQuestion?.id) {
           return "#6D275D";
         }
-        const questionInHistory = questionHistory?.find((q) => q.id === d.id);
-        if (questionInHistory?.answer === 0) {
-          return "#C50043";
-        }
-        if (questionInHistory?.answer === 1) {
-          return "#064359";
-        }
+
+        // Default color for unanswered questions
         return "#064359";
       })
       .attr("stroke", (d: any) => {
-        // Cek apakah ini node tanaman
+        // Check if it's a plant node
         const isPlant = !d.id.startsWith("q");
         if (isPlant) {
-          return "#adf7b6"; // Stroke untuk tanaman
+          return "#adf7b6";
         }
 
-        // Logika untuk node pertanyaan
+        // Logic for answered questions
+        const questionInHistory = questionHistory?.find((q) => q.id === d.id);
+        if (questionInHistory) {
+          // Use the stored answer to determine stroke color
+          // Note: Changed the condition to explicitly check for answer values
+          if (questionInHistory.answer === 0) {
+            return "#ffc09f"; // Coral stroke for "No" answers
+          } else if (questionInHistory.answer === 1) {
+            return "#a0ced9"; // Light blue stroke for "Yes" answers
+          }
+        }
+
+        // Current question stroke
         if (d.id === currentQuestion?.id) {
           return "#a594f9";
         }
-        const questionInHistory = questionHistory?.find((q) => q.id === d.id);
-        if (questionInHistory?.answer === 0) {
-          return "#ffc09f";
-        }
-        if (questionInHistory?.answer === 1) {
-          return "#a0ced9";
-        }
+
+        // Default stroke for unanswered questions
         return "#a0ced9";
       })
       .attr("stroke-width", 8);
